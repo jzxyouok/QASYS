@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Users</title>
+    <link href="../../../css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="fragments :: navbar"></div>
+<div class="container-fluid" style="margin: 0 10px;">
+    <div th:include="fragments :: toolbar"></div>
+    <div class="row" style="font-size: x-large; border-bottom: 1px solid lightgray;">
+        Users
+    </div>
+    <div  class="row" style="margin-top: 20px;">
+        <form class="form-horizontal" method="post"
+              action="../users.html" >
+            <div class="form-group">
+                <label class="col-md-2 control-label">Type to find users:</label>
+                 <div class="col-md-3 ">
+                     <input class=" form-control" type="text" placeholder="username" th:name="user.name"/>
+                 </div>
+                <div class="col-md-1 " style="vertical-align: middle">
+                    <button th:formaction="@{/user/findName}" class="btn btn-default " style="margin-left: 5px;">Search</button>
+                </div>
+                <div class="col-md-6 "></div>
+            </div>
+        </form>
+    </div>
+    <div class="row" >
+        <div class="col-md-3" style="margin-top: 20px; "
+             th:each="user : ${users}" th:object="${user}">
+            <div class="row" >
+                <div class="col-md-offset-2 col-md-3">
+                    <img src="../../../images/default.jpg"
+                         th:src="@{/images/default.jpg}"
+                         style="height: 60px ; width: 60px" />
+                </div>
+                <div class="col-md-7" style="vertical-align: middle">
+                    <div class="row" style="margin-top: 10px">
+                        <a style="text-decoration: none;"
+                           th:href="@{/user/{id}(id=*{id})}"
+                           th:text="*{name}">username</a>
+                    </div>
+                    <div class="row" >
+                        <a th:text="*{score}">score</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
